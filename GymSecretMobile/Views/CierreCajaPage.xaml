@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSecretMobile.Views.CierreCajaPage"
+             Title="Cierre de Caja"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White"
+             Shell.BackgroundColor="#0A0A0A">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <Image Grid.RowSpan="3"
+               Source="fondo_carbono.png" 
+               Aspect="AspectFill" 
+               HorizontalOptions="Fill" 
+               VerticalOptions="Fill" />
+
+        <Border Grid.Row="0" Margin="15,15,15,5" Padding="12,6" StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 12">
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Selecciona el mes" HorizontalOptions="Center" TextColor="#CCFFFFFF" FontSize="11" FontAttributes="Bold"/>
+                <Picker x:Name="pckMes" 
+                        Title="Toca para elegir..." 
+                        TitleColor="#99FFFFFF"
+                        TextColor="White" 
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        WidthRequest="200"
+                        SelectedIndexChanged="OnMesSeleccionadoChanged"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Grid.Row="1" Margin="15,10" Padding="15" Stroke="#44FFFFFF" StrokeThickness="1" StrokeShape="RoundRectangle 16" BackgroundColor="#CC2E2E2E">
+            <VerticalStackLayout Spacing="10">
+                <Label x:Name="lblMesSeleccionado" Text="Mes No Seleccionado" FontSize="18" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+
+                <BoxView HeightRequest="1" Color="#44FFFFFF" HorizontalOptions="Fill"/>
+
+                <Grid ColumnDefinitions="*, *, *" HorizontalOptions="Fill">
+                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="2">
+                        <Label Text="Ingresos" TextColor="#CCCCCC" FontSize="12" HorizontalOptions="Center"/>
+                        <Label x:Name="lblIngresos" Text="$0.00" FontAttributes="Bold" FontSize="15" TextColor="#4CAF50" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
+                        <Label Text="Egresos" TextColor="#CCCCCC" FontSize="12" HorizontalOptions="Center"/>
+                        <Label x:Name="lblEgresos" Text="$0.00" FontAttributes="Bold" FontSize="15" TextColor="#EB5757" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
+                        <Label Text="Neto" TextColor="#CCCCCC" FontSize="12" HorizontalOptions="Center"/>
+                        <Label x:Name="lblNeto" Text="$0.00" FontAttributes="Bold" FontSize="15" TextColor="White" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+        <CollectionView Grid.Row="2" x:Name="lstTransacciones" Margin="18,5,18,0" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout BackgroundColor="Transparent">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTransaccionTapped" />
+                        </VerticalStackLayout.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="*, Auto" Padding="2,10">
+                            <VerticalStackLayout Grid.Column="0" Spacing="3" VerticalOptions="Center">
+                                <Label Text="{Binding Concepto}" TextColor="White" FontSize="15" FontAttributes="Bold"/>
+                                <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy HH:mm}'}" TextColor="#AAAAAA" FontSize="12"/>
+                            </VerticalStackLayout>
+
+                            <Label Grid.Column="1" 
+                                   Text="{Binding Monto, StringFormat='${0:F2}'}" 
+                                   TextColor="{Binding ColorMonto}" 
+                                   FontAttributes="Bold" 
+                                   FontSize="15"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                        <BoxView HeightRequest="0.5" Color="#22FFFFFF" HorizontalOptions="Fill"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

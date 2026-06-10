@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSecretMobile.Views.VerClientesPage"
+             Title=""
+             Shell.NavBarIsVisible="False"
+             Shell.BackgroundColor="Transparent">
+    <Grid>
+        <Image Source="fondo_carbono.png" 
+               Aspect="AspectFill" 
+               HorizontalOptions="Fill" 
+               VerticalOptions="Fill" />
+        <Grid RowDefinitions="Auto, Auto, Auto, *" Margin="20, 30, 20, 0">
+            <VerticalStackLayout Grid.Row="0" Margin="0,0,0,15">
+                <Label x:Name="lblDiaSemana" 
+                       Text="Sábado" 
+                       FontSize="36" 
+                       FontAttributes="Bold" 
+                       TextColor="White" />
+
+                <BoxView HeightRequest="2" 
+                         BackgroundColor="White" 
+                         HorizontalOptions="Fill" 
+                         Margin="0,5,0,8" />
+
+                <Label x:Name="lblFechaLarga" 
+                       Text="16 de Mayo de 2026" 
+                       FontSize="20" 
+                       FontAttributes="Bold" 
+                       TextColor="White" />
+            </VerticalStackLayout>
+
+            <Grid Grid.Row="1" ColumnDefinitions="*, Auto" ColumnSpacing="10" Margin="0,0,0,15">
+
+                <Border Grid.Column="0" 
+                        BackgroundColor="#AA1E1E1E" 
+                        StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="0" 
+                        HeightRequest="45">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Image Source="icono_buscar.png" WidthRequest="20" Margin="10,0,5,0" VerticalOptions="Center"/>
+                        <Entry x:Name="searchBarClientes" 
+                               Grid.Column="1"
+                               Placeholder="Buscar Cliente" 
+                               PlaceholderColor="#88FFFFFF"
+                               TextColor="White"
+                               FontSize="16"
+                               VerticalOptions="Center"
+                               TextChanged="OnSearchBarTextChanged"/>
+                    </Grid>
+                </Border>
+
+                <Button Grid.Column="1"
+                        ImageSource="icono_agregar.png"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        BackgroundColor="#008A19"
+                        TextColor="White"
+                        WidthRequest="65"
+                        HeightRequest="45"
+                        CornerRadius="10"
+                        Clicked="OnAgregarClienteClicked"/>
+            </Grid>
+            <!--Botones de filtro-->
+            <HorizontalStackLayout Grid.Row="2" Spacing="12" HorizontalOptions="Center" Margin="0,0,0,15">
+
+                <Border x:Name="borderRecientes" StrokeShape="RoundRectangle 8" BackgroundColor="#80555555" StrokeThickness="0" Padding="15,8">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFiltroRecientesClicked"/>
+                    </Border.GestureRecognizers>
+                    <Label x:Name="lblRecientes" Text="Recientes" TextColor="#7D7D7D" FontAttributes="Bold" FontSize="14"/>
+                </Border>
+
+                <Border x:Name="borderActivos" StrokeShape="RoundRectangle 8" BackgroundColor="#80555555" StrokeThickness="0" Padding="15,8">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFiltroActivosClicked"/>
+                    </Border.GestureRecognizers>
+                    <Label x:Name="lblActivos" Text="Activos" TextColor="#7D7D7D" FontAttributes="Bold" FontSize="14"/>
+                </Border>
+
+                <Border x:Name="borderInactivos" StrokeShape="RoundRectangle 8" BackgroundColor="#80555555" StrokeThickness="0" Padding="15,8">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFiltroInactivosClicked"/>
+                    </Border.GestureRecognizers>
+                    <Label x:Name="lblInactivos" Text="Inactivos" TextColor="#7D7D7D" FontAttributes="Bold" FontSize="14"/>
+                </Border>
+                
+                <Border x:Name="borderActualizar" StrokeShape="RoundRectangle 8" BackgroundColor="#2196F3" StrokeThickness="0" Padding="15,8" ToolTipProperties.Text="Actualizar datos">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnActualizarClicked"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="↻" TextColor="White" FontAttributes="Bold" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,-2,0,0"/>
+                </Border>
+            </HorizontalStackLayout>
+
+            <CollectionView Grid.Row="3" x:Name="lstClientes" SelectionMode="None" Margin="0,0,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="#55FFFFFF" 
+                                StrokeThickness="1" 
+                                StrokeShape="RoundRectangle 25" 
+                                Margin="0,8" 
+                                BackgroundColor="#CC2E2E2E" 
+                                Padding="18">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnClienteTapped" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="*, 110" RowDefinitions="Auto, Auto, *">
+
+                                <VerticalStackLayout Grid.Column="0" Grid.RowSpan="3" Spacing="6" VerticalOptions="Center">
+                                    <Label Text="{Binding NombreCompleto}" FontSize="22" FontAttributes="Bold" TextColor="White" />
+
+                                    <Border BackgroundColor="{Binding EstadoColor}" HorizontalOptions="Start" Padding="12,4" StrokeShape="RoundRectangle 8">
+                                        <Label Text="{Binding EstadoTexto}" TextColor="White" FontSize="12" FontAttributes="Bold" />
+                                    </Border>
+
+                                    <VerticalStackLayout Spacing="2" Margin="0,0,0,0">
+                                        <Label Text="{Binding DiasRestantes, StringFormat='Días restantes: {0}'}" TextColor="#CCCCCC" FontSize="14"/>
+                                        <Label Text="{Binding FechaUltimoPago, StringFormat='Fecha ultimo pago: {0:dd/MM/yyyy}'}" TextColor="#CCCCCC" FontSize="13"/>
+                                        <Label Text="{Binding FechaVencimiento, StringFormat='Fecha vencimiento: {0:dd/MM/yyyy}'}" TextColor="#CCCCCC" FontSize="13"/>
+                                    </VerticalStackLayout>
+                                </VerticalStackLayout>
+
+                                <Border Grid.Column="1" Grid.Row="0" WidthRequest="95" HeightRequest="95" StrokeShape="RoundRectangle 12" HorizontalOptions="Center" StrokeThickness="0">
+                                    <Image Source="{Binding FotoLocalPath}" Aspect="AspectFill" />
+                                </Border>
+
+                                <Button Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
+                                        Text="Asistencia" 
+                                        TextColor="White"
+                                        FontAttributes="Bold"
+                                        FontSize="11" 
+                                        HeightRequest="36"
+                                        CornerRadius="8"
+                                        Margin="0,12,0,0"
+                                        BackgroundColor="#000000"
+                                        BorderColor="#55FFFFFF"
+                                        BorderWidth="1"
+                                        IsEnabled="{Binding PuedeRegistrarAsistencia}"
+                                        Clicked="OnRegistrarAsistenciaClicked"
+                                        CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>

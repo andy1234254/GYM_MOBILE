@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSecretMobile.Views.TransaccionesPage"
+             Title="Movimientos de Caja"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White"
+             Shell.BackgroundColor="#0A0A0A"
+             Shell.TabBarIsVisible="True"
+             >
+
+    <Grid>
+        <Image Source="fondo_carbono.png" 
+               Aspect="AspectFill" 
+               HorizontalOptions="Fill" 
+               VerticalOptions="Fill" />
+
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="20">
+
+                <Label Text="Registrar Movimiento" 
+                       FontSize="24" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center" 
+                       TextColor="White" 
+                       Margin="0,10,0,5"/>
+
+                <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                    <Picker x:Name="pckTipo" 
+                            Title="Selecciona el Tipo" 
+                            TitleColor="#BBFFFFFF"
+                            TextColor="White" 
+                            BackgroundColor="Transparent"
+                            SelectedIndexChanged="OnTipoChanged">
+                        <Picker.Items>
+                            <x:String>Ingreso</x:String>
+                            <x:String>Egreso</x:String>
+                            <x:String>Producto</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Border>
+
+                <VerticalStackLayout x:Name="stackNormal" Spacing="18" IsVisible="False">
+
+                    <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                        <Entry x:Name="txtConcepto" 
+                               Placeholder="Concepto" 
+                               PlaceholderColor="#BBFFFFFF"
+                               TextColor="White"
+                               BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                        <Entry x:Name="txtMonto" 
+                               Placeholder="Monto" 
+                               Keyboard="Numeric" 
+                               PlaceholderColor="#BBFFFFFF"
+                               TextColor="White"
+                               BackgroundColor="Transparent"/>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout x:Name="stackProducto" Spacing="18" IsVisible="False">
+
+                    <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                        <Picker x:Name="pckSeleccionarProducto" 
+                Title="Selecciona el Producto" 
+                TitleColor="#BBFFFFFF"
+                ItemDisplayBinding="{Binding Nombre}"
+                TextColor="White"
+                BackgroundColor="Transparent"
+                SelectedIndexChanged="OnProductoSeleccionadoChanged"/>
+                    </Border>
+
+                    <Grid x:Name="gridFotoProducto" ColumnDefinitions="Auto, *" ColumnSpacing="15" Margin="5,0" IsVisible="False">
+                        <Border Grid.Column="0" StrokeShape="RoundRectangle 8" StrokeThickness="1" Stroke="#55FFFFFF" WidthRequest="65" HeightRequest="65" HorizontalOptions="Start">
+                            <Image x:Name="imgProductoPreview" Aspect="AspectFill"/>
+                        </Border>
+                        <Button Grid.Column="1" 
+                ImageSource="icono_foto.png" 
+                BackgroundColor="#33FFFFFF" 
+                TextColor="White" 
+                BorderColor="#55FFFFFF"
+                BorderWidth="1"
+                CornerRadius="8"
+                HeightRequest="38" 
+                HorizontalOptions="Start" 
+                VerticalOptions="Center"
+                Clicked="OnActualizarFotoProductoClicked"/>
+                    </Grid>
+
+                    <Button Text="+ Nuevo Producto" 
+            BackgroundColor="#4CAF50" 
+            TextColor="White" 
+            FontAttributes="Bold"
+            CornerRadius="8" 
+            HeightRequest="40"
+            HorizontalOptions="End"
+            Clicked="OnNuevoProductoClicked"
+            Margin="0,0,0,5"/>
+
+                    <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                        <Entry x:Name="txtCantidadIngresa" 
+               Placeholder="Cantidad Ingresada:" 
+               Keyboard="Numeric" 
+               PlaceholderColor="#BBFFFFFF"
+               TextColor="White"
+               BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                        <Entry x:Name="txtTotalCompra" 
+               Placeholder="Total de la compra: " 
+               Keyboard="Numeric" 
+               PlaceholderColor="#BBFFFFFF"
+               TextColor="White"
+               BackgroundColor="Transparent"/>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <Button Text="REGISTRAR Y GUARDAR" 
+                        BackgroundColor="Black" 
+                        TextColor="White" 
+                        BorderColor="#55FFFFFF"
+                        BorderWidth="1"
+                        FontAttributes="Bold"
+                        HeightRequest="58"
+                        CornerRadius="12" 
+                        Margin="0,15,0,0"
+                        Clicked="OnGuardarTransaccionClicked"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

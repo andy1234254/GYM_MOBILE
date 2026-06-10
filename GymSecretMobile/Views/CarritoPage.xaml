@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSecretMobile.Views.CarritoPage"
+             Title="Carrito de compra"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White"
+             Shell.BackgroundColor="#0A0A0A"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="True">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <Image Grid.RowSpan="2"
+               Source="fondo_carbono.png" 
+               Aspect="AspectFill" 
+               HorizontalOptions="Fill" 
+               VerticalOptions="Fill" />
+
+        <CollectionView Grid.Row="0" x:Name="lstCarrito" Margin="15,15,15,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="#44FFFFFF" StrokeThickness="1" Margin="0,0,0,12" Padding="15" StrokeShape="RoundRectangle 18" BackgroundColor="#CC2E2E2E">
+                        <Grid ColumnDefinitions="70, *, Auto" ColumnSpacing="12">
+                            <Border Grid.Column="0" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#222222" HeightRequest="70" WidthRequest="70" VerticalOptions="Center">
+                                <Image Source="{Binding ImagenMostrar}" Aspect="AspectFill" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Label Text="{Binding NombreProducto}" FontSize="18" FontAttributes="Bold" TextColor="White"/>
+
+                                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                                    <Button Text="-" WidthRequest="35" HeightRequest="35" BackgroundColor="#444" Clicked="OnDisminuirClicked" CommandParameter="{Binding .}"/>
+                                    <Label Text="{Binding CantidadVendida}" FontSize="16" VerticalOptions="Center" WidthRequest="30" HorizontalTextAlignment="Center" TextColor="White"/>
+                                    <Button Text="+" WidthRequest="35" HeightRequest="35" BackgroundColor="#444" Clicked="OnAumentarClicked" CommandParameter="{Binding .}"/>
+                                </HorizontalStackLayout>
+
+                                <Label Text="{Binding Subtotal, StringFormat='Subtotal: ${0:F2}'}" FontSize="15" TextColor="#4CAF50" FontAttributes="Bold"/>
+                            </VerticalStackLayout>
+
+                            <Button Grid.Column="2" Text="🗑" BackgroundColor="#EB5757" TextColor="White" HeightRequest="48" WidthRequest="48" CornerRadius="10" CommandParameter="{Binding .}" Clicked="OnEliminarProductoClicked" VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Border Grid.Row="1" 
+                BackgroundColor="#EE121212" 
+                Padding="20,25" 
+                StrokeThickness="0" 
+                StrokeShape="RoundRectangle 25,25,0,0">
+            <VerticalStackLayout Spacing="20">
+
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Text="TOTAL A PAGAR:" 
+                           TextColor="#CCCCCC" 
+                           FontSize="14" 
+                           FontAttributes="Bold" 
+                           VerticalOptions="Center"/>
+
+                    <Label Grid.Column="1"
+                           x:Name="lblTotal" 
+                           Text="Total: $" 
+                           FontSize="26" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           VerticalOptions="Center"/>
+                </Grid>
+
+                <Button Text="COBRAR Y GUARDAR" 
+                        BackgroundColor="Black" 
+                        TextColor="White" 
+                        FontSize="18" 
+                        FontAttributes="Bold"
+                        CharacterSpacing="1"
+                        HeightRequest="62" 
+                        CornerRadius="15"
+                        Clicked="OnCobrarClicked"/>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

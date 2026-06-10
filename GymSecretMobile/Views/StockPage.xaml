@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSecretMobile.Views.StockPage"
+             Title="Tienda"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White"
+             Shell.BackgroundColor="#0A0A0A">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <Image Grid.RowSpan="2"
+               Source="fondo_carbono.png" 
+               Aspect="AspectFill" 
+               HorizontalOptions="Fill" 
+               VerticalOptions="Fill" />
+
+        <Grid Grid.Row="0" ColumnDefinitions="*, Auto, 65" ColumnSpacing="12" Margin="15,15,15,10">
+
+            <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,0">
+                <SearchBar x:Name="searchBarProductos"
+                           Placeholder="Buscar"
+                           PlaceholderColor="#BBFFFFFF"
+                           TextColor="White"
+                           BackgroundColor="Transparent"
+                           TextChanged="OnSearchBarTextChanged" />
+            </Border>
+            <Border Grid.Column="1" 
+                    x:Name="borderActualizar" 
+                    StrokeShape="RoundRectangle 10" 
+                    BackgroundColor="#2196F3" 
+                    StrokeThickness="0" 
+                    WidthRequest="45" 
+                    HeightRequest="45"
+                    ToolTipProperties.Text="Actualizar inventario">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnActualizarClicked"/>
+                </Border.GestureRecognizers>
+                <Label Text="↻" TextColor="White" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,-2,0,0"/>
+            </Border>
+
+            <Button Grid.Column="2"
+                    ImageSource="icono_carrito.png"
+                    FontSize="22"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    HeightRequest="35"
+                    CornerRadius="10"
+                    Clicked="OnVerCarritoClicked"/>
+        </Grid>
+
+        <CollectionView Grid.Row="1" x:Name="lstStock" Margin="15,5,15,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="#44FFFFFF" 
+                            StrokeThickness="1" 
+                            Margin="0,0,0,12" 
+                            Padding="15" 
+                            StrokeShape="RoundRectangle 16" 
+                            BackgroundColor="#CC2E2E2E">
+                        
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProductoCardTapped" />
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="80, *, Auto" ColumnSpacing="12">
+
+                            <Border Grid.Column="0" 
+                                    StrokeThickness="0" 
+                                    StrokeShape="RoundRectangle 10" 
+                                    BackgroundColor="#222222" 
+                                    HeightRequest="80" 
+                                    WidthRequest="80" 
+                                    VerticalOptions="Center">
+                                <Image Source="{Binding ImagenMostrar}" Aspect="AspectFill" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Label Text="{Binding Nombre}" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold" 
+                                       TextColor="White"/>
+
+                                <Label Text="{Binding CantidadDisponible, StringFormat='Disponible: {0}'}" 
+                                       FontSize="13" 
+                                       TextColor="{Binding ColorStock}"
+                                       FontAttributes="Bold"/>
+
+                                <Label Text="{Binding PrecioVenta, StringFormat='Precio: {0:C}'}" 
+                                       FontSize="14" 
+                                       TextColor="#E0E0E0" 
+                                       FontAttributes="Bold"/>
+                            </VerticalStackLayout>
+
+                            <Button Grid.Column="2" 
+                                    Text="+ Agregar" 
+                                    BackgroundColor="#4CAF50" 
+                                    TextColor="White" 
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    Padding="12,0"
+                                    HeightRequest="42"
+                                    CornerRadius="8"
+                                    CommandParameter="{Binding .}"
+                                    Clicked="OnAgregarAlCarritoClicked"
+                                    VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

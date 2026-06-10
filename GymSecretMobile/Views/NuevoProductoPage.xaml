@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSecretMobile.Views.NuevoProductoPage"
+             Title="Nuevo Producto"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White"
+             Shell.BackgroundColor="#0A0A0A"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="True">
+
+    <Grid>
+        <Image Source="fondo_carbono.png" 
+               Aspect="AspectFill" 
+               HorizontalOptions="Fill" 
+               VerticalOptions="Fill" />
+
+        <ScrollView VerticalOptions="Center" Padding="20">
+
+            <Border Stroke="#55FFFFFF" 
+                    StrokeThickness="1" 
+                    StrokeShape="RoundRectangle 20" 
+                    BackgroundColor="#CC2E2E2E" 
+                    Padding="20"
+                    Margin="5,0">
+
+                <VerticalStackLayout Spacing="18">
+
+                    <Label Text="REGISTRAR PRODUCTO" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           CharacterSpacing="1"
+                           HorizontalOptions="Center" 
+                           TextColor="White"
+                           Margin="0,5,0,5"/>
+
+                    <Border StrokeThickness="1" 
+                            Stroke="#80FFFFFF" 
+                            StrokeShape="RoundRectangle 10" 
+                            BackgroundColor="#80555555" 
+                            HeightRequest="150" 
+                            WidthRequest="150" 
+                            HorizontalOptions="Center">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTomarFotoTapped" />
+                        </Border.GestureRecognizers>
+
+                        <Grid>
+                            <Image x:Name="imgProducto" Aspect="AspectFill" />
+                            <Image x:Name="iconoImg" Source="icono_foto.png" WidthRequest="50" Margin="10,0,5,0" VerticalOptions="Center"/>
+                            <Label x:Name="lblFotoPlaceholder" 
+                                   TextColor="#BBFFFFFF" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center" 
+                                   FontAttributes="Bold"/>
+                        </Grid>
+                    </Border>
+
+                    <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                        <Entry x:Name="txtNombre" 
+                               Placeholder="Nombre del Producto" 
+                               PlaceholderColor="#BBFFFFFF"
+                               TextColor="White" 
+                               BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                        <Entry x:Name="txtPrecio" 
+                               Placeholder="Precio a Vender" 
+                               Keyboard="Numeric" 
+                               PlaceholderColor="#BBFFFFFF"
+                               TextColor="White" 
+                               BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12" Margin="0,10,0,5">
+
+                        <Button Grid.Column="0" 
+                                Text="CANCELAR" 
+                                BackgroundColor="#EB5757" 
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                HeightRequest="46"
+                                CornerRadius="10"
+                                Clicked="OnCancelarClicked"/>
+
+                        <Button Grid.Column="1" 
+                                Text="GUARDAR" 
+                                BackgroundColor="#4CAF50" 
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                HeightRequest="46"
+                                CornerRadius="10"
+                                Clicked="OnGuardarClicked"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+        </ScrollView>
+    </Grid>
+</ContentPage>

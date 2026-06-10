@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:GymSecretMobile.Views"
+       x:Class="GymSecretMobile.AppShell"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.NavBarIsVisible="False"  
+       Shell.TabBarBackgroundColor="#000000"
+       Shell.TabBarUnselectedColor="#7D7D7D"
+       Shell.TabBarTitleColor="#FFFFFF"
+       Shell.TabBarForegroundColor="#FFFFFF">
+
+    <TabBar>
+
+        <Tab Title="Inicio" Icon="icono_usuario.png">
+            <ShellContent ContentTemplate="{DataTemplate views:VerClientesPage}" />
+        </Tab>
+
+        <Tab Title="Finanzas" Icon="icono_dinero.png">
+            <ShellContent ContentTemplate="{DataTemplate views:TransaccionesPage}" />
+        </Tab>
+
+        <Tab Title="Tienda" Icon="icono_tienda.png">
+            <ShellContent ContentTemplate="{DataTemplate views:StockPage}" />
+        </Tab>
+
+        <Tab Title="Caja" Icon="icono_caja.png">
+            <ShellContent ContentTemplate="{DataTemplate views:CierreCajaPage}" />
+        </Tab>
+
+    </TabBar>
+</Shell>

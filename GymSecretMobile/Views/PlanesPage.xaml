@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GymSecretMobile.Views.PlanesPage"
+             Title="Configuración de Planes"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White"
+             Shell.BackgroundColor="#0A0A0A"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="True">
+
+    <Grid>
+        <Image Source="fondo_carbono.png" 
+               Aspect="AspectFill" 
+               HorizontalOptions="Fill" 
+               VerticalOptions="Fill" />
+
+        <Grid RowDefinitions="Auto, *">
+
+            <Border Grid.Row="0" 
+                    Margin="15" 
+                    Padding="18" 
+                    Stroke="#55FFFFFF" 
+                    StrokeThickness="1" 
+                    StrokeShape="RoundRectangle 15" 
+                    BackgroundColor="#CC2E2E2E">
+                <VerticalStackLayout Spacing="12">
+
+                    <Label Text="CREAR NUEVA MEMBRESÍA" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           FontSize="14"
+                           CharacterSpacing="1"
+                           HorizontalOptions="Center"/>
+
+                    <Border StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                        <Entry x:Name="txtNombrePlan" 
+                               Placeholder="Nombre (Ej. Trimestre Premium)" 
+                               PlaceholderColor="#BBFFFFFF"
+                               TextColor="White" 
+                               BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                        <Border Grid.Column="0" StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                            <Entry x:Name="txtPrecio" 
+                                   Placeholder="Precio ($)" 
+                                   Keyboard="Numeric" 
+                                   PlaceholderColor="#BBFFFFFF"
+                                   TextColor="White" 
+                                   BackgroundColor="Transparent"/>
+                        </Border>
+
+                        <Border Grid.Column="1" StrokeThickness="0" BackgroundColor="#80555555" StrokeShape="RoundRectangle 10" Padding="10,2">
+                            <Entry x:Name="txtDiasDuracion" 
+                                   Placeholder="Duración (Días)" 
+                                   Keyboard="Numeric" 
+                                   PlaceholderColor="#BBFFFFFF"
+                                   TextColor="White" 
+                                   BackgroundColor="Transparent"/>
+                        </Border>
+                    </Grid>
+
+                    <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" Margin="0,5">
+                        <CheckBox x:Name="chkActivaPareja" Color="#4CAF50" />
+                        <Label Text="Activar Plan Pareja" VerticalOptions="Center" TextColor="White" FontSize="15"/>
+                    </HorizontalStackLayout>
+
+                    <Button Text="GUARDAR PLAN" 
+                            BackgroundColor="Black" 
+                            TextColor="White" 
+                            BorderColor="#55FFFFFF"
+                            BorderWidth="1"
+                            FontAttributes="Bold"
+                            HeightRequest="45"
+                            CornerRadius="10" 
+                            Clicked="OnGuardarPlanClicked"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <CollectionView Grid.Row="1" x:Name="lstPlanes" Margin="15,5,15,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="#33FFFFFF" 
+                                StrokeThickness="1" 
+                                Margin="0,0,0,12" 
+                                Padding="15" 
+                                BackgroundColor="#AA1E1E1E"
+                                StrokeShape="RoundRectangle 12">
+                            <Grid ColumnDefinitions="*, Auto, Auto" ColumnSpacing="15">
+
+                                <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" Spacing="3">
+                                    <Label Text="{Binding Nombre}" FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                    <Label Text="{Binding DiasDuracion, StringFormat='Vence en: {0} días'}" FontSize="13" TextColor="#CCCCCC"/>
+                                </VerticalStackLayout>
+
+                                <Label Grid.Column="1" 
+                                       Text="{Binding Precio, StringFormat='${0:F2}'}" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#4CAF50" 
+                                       VerticalOptions="Center"/>
+
+                                <Button Grid.Column="2" 
+                                        Text="🗑" 
+                                        BackgroundColor="#EB5757" 
+                                        TextColor="White" 
+                                        FontAttributes="Bold"
+                                        WidthRequest="42"
+                                        HeightRequest="42"
+                                        CornerRadius="8" 
+                                        Padding="0" 
+                                        Clicked="OnEliminarPlanClicked"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>
